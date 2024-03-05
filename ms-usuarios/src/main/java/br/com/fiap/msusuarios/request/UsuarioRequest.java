@@ -20,7 +20,7 @@ public class UsuarioRequest {
     @NotBlank
     private String senha;
 
-    public Usuario toModel() {
+    public Usuario toDomain() {
         return new Usuario(this.nome, this.email, this.senha);
     }
 }

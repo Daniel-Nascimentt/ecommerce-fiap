@@ -9,7 +9,6 @@ import br.com.fiap.msusuarios.response.UsuarioResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,7 +19,7 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public UsuarioResponse criarUsuario(UsuarioRequest request) {
-        Usuario usuarioSalvo = usuarioRepository.save(request.toModel());
+        Usuario usuarioSalvo = usuarioRepository.save(request.toDomain());
         return new UsuarioResponse(usuarioSalvo);
     }
 
