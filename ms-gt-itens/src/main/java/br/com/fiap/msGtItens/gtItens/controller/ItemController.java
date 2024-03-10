@@ -3,7 +3,6 @@ package br.com.fiap.msGtItens.gtItens.controller;
 import br.com.fiap.msGtItens.gtItens.exception.ItemNotFoundException;
 import br.com.fiap.msGtItens.gtItens.request.ItemRequest;
 import br.com.fiap.msGtItens.gtItens.request.ItemUpdateRequest;
-import br.com.fiap.msGtItens.gtItens.request.ItenParaCarrinhoRequest;
 import br.com.fiap.msGtItens.gtItens.response.ItemResponse;
 import br.com.fiap.msGtItens.gtItens.service.ItemService;
 import jakarta.validation.Valid;
@@ -40,11 +39,6 @@ public class ItemController {
         return ResponseEntity.ok(itemService.buscarTodosItens(pageable));
     }
 
-    @PostMapping("/addCarrinho")
-    public ResponseEntity<?> enviarItemAoCarrinho(@Valid @RequestBody ItenParaCarrinhoRequest request) throws ItemNotFoundException {
-        itemService.enviarItemAoCarrinho(request);
-        return ResponseEntity.ok().build();
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ItemResponse> deletarItemPorId(@PathVariable String id) throws ItemNotFoundException {

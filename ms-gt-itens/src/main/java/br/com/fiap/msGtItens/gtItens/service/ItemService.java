@@ -5,14 +5,12 @@ import br.com.fiap.msGtItens.gtItens.exception.ItemNotFoundException;
 import br.com.fiap.msGtItens.gtItens.repository.ItemRepository;
 import br.com.fiap.msGtItens.gtItens.request.ItemRequest;
 import br.com.fiap.msGtItens.gtItens.request.ItemUpdateRequest;
-import br.com.fiap.msGtItens.gtItens.request.ItenParaCarrinhoRequest;
 import br.com.fiap.msGtItens.gtItens.response.ItemResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Service
@@ -20,6 +18,7 @@ public class ItemService {
 
     @Autowired
     private ItemRepository itemRepository;
+
 
     public ItemResponse criarItem(ItemRequest request) {
         Item itemSalvo = itemRepository.save(request.toDomain());
@@ -50,13 +49,7 @@ public class ItemService {
         return new ItemResponse(item);
     }
 
-    public void enviarItemAoCarrinho(ItenParaCarrinhoRequest request) throws ItemNotFoundException {
-        Item item = itemRepository.findById(UUID.fromString(request.getIdItem())).orElseThrow(() -> new ItemNotFoundException("Item não encontrado!!"));
 
-        BigDecimal valor = item.getPreco().multiply(new BigDecimal(request.getQuantidade()));
-
-        // enviar para ms de carrinho
-    }
 
     public void deletarItemPorId(String id) throws ItemNotFoundException {
         Item item = itemRepository.findById(UUID.fromString(id)).orElseThrow(() -> new ItemNotFoundException("Item não encontrado!!"));

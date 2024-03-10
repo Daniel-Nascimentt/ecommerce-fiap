@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Getter
 @NoArgsConstructor
 public class CarrinhoRequest {
@@ -16,6 +14,6 @@ public class CarrinhoRequest {
     @NotBlank
     private String idItem;
     @NotNull
-    private BigDecimal valorItem;
+    private int quantidade;
 
 }

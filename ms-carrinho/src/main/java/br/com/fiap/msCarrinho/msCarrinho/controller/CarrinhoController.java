@@ -1,5 +1,6 @@
 package br.com.fiap.msCarrinho.msCarrinho.controller;
 
+import br.com.fiap.msCarrinho.msCarrinho.exception.CarrinhoJaAbertoException;
 import br.com.fiap.msCarrinho.msCarrinho.exception.CarrinhoNotFoundException;
 import br.com.fiap.msCarrinho.msCarrinho.exception.ItemNotFoundException;
 import br.com.fiap.msCarrinho.msCarrinho.request.CarrinhoRequest;
@@ -23,8 +24,13 @@ public class CarrinhoController {
         return ResponseEntity.ok(carrinhoService.visualizarCarrinho(idUsuario));
     }
 
+    @PostMapping("/abrirCarrinho/{idUsuario}")
+    public ResponseEntity<CarrinhoResponse> abrirCarrinho(@PathVariable String idUsuario) throws CarrinhoJaAbertoException {
+        return ResponseEntity.ok(carrinhoService.abrirCarrinho(idUsuario));
+    }
+
     @PostMapping("/addItemCarrinho")
-    public ResponseEntity<CarrinhoResponse> addItemCarrinho(@Valid @RequestBody CarrinhoRequest request){
+    public ResponseEntity<CarrinhoResponse> addItemCarrinho(@Valid @RequestBody CarrinhoRequest request) throws CarrinhoNotFoundException {
         return ResponseEntity.ok(carrinhoService.addItemCarrinho(request));
     }
 
