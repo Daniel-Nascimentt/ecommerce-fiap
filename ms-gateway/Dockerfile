@@ -10,11 +10,11 @@ RUN mvn clean package -DskipTests
 
 FROM openjdk:17
 
-ENV HOST_USUARIOS=http://ms-clientes:8081/ms-cliente
-ENV HOST_PAGAMENTOS=http://ms-quartos:8083/ms-quartos
-ENV HOST_GT_ITENS=http://ms-reservas:8084/ms-reservas
-ENV HOST_CARRINHO=http://ms-servicos-opcionais:8082/ms-servicos
-ENV HOST_AUTENTICACAO=http://ms-servicos-opcionais:8082/ms-servicos
+ENV HOST_CLIENTES=http://service-clientes:8081/ms-clientes
+ENV HOST_CARRINHO=http://service-carrinho:8083/ms-carrinho
+ENV HOST_PAGAMENTOS=http://service-pagamentos:8084/ms-pagamento
+ENV HOST_GT_ITENS=http://service-itens:8082/ms-gt-itens
+ENV HOST_AUTENTICACAO=http://service-autenticacao:8085/ms-autenticacao
 
 WORKDIR /app
 

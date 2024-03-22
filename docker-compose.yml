@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  postgres:
+  meu-postgres:
     image: postgres:latest
     container_name: meu-postgres
     environment:
@@ -19,3 +19,105 @@ services:
       ' 
     ports:
       - "5432:5432"
+    networks:
+      - my_network
+
+  service-autenticacao:
+    container_name: service-autenticacao
+    build:
+      context: ./ms-autenticacao
+      dockerfile: Dockerfile
+    environment:
+      PG_HOST: jdbc:postgresql://meu-postgres:5432/ms_autenticacao
+      PG_USER: postgres
+      PG_PASSWORD: postgres
+      API_SECRET: 7GANwY75ax
+      MS_CLIENTES_URL: http://service-clientes:8081/ms-clientes/clientes
+    depends_on:
+      - meu-postgres
+    networks:
+      - my_network
+
+  service-clientes:
+    container_name: service-clientes
+    build:
+      context: ./ms-clientes
+      dockerfile: Dockerfile
+    environment:
+      PG_HOST: jdbc:postgresql://meu-postgres:5432/ms_clientes
+      PG_USER: postgres
+      PG_PASSWORD: postgres
+      API_SECRET: 7GANwY75ax
+    depends_on:
+      - meu-postgres
+    networks:
+      - my_network
+
+  service-itens:
+    container_name: service-itens
+    build:
+      context: ./ms-gt-itens
+      dockerfile: Dockerfile
+    environment:
+      PG_HOST: jdbc:postgresql://meu-postgres:5432/ms_gt_itens
+      PG_USER: postgres
+      PG_PASSWORD: postgres
+    depends_on:
+      - meu-postgres
+    networks:
+      - my_network
+
+  service-pagamentos:
+    container_name: service-pagamentos
+    build:
+      context: ./ms-pagamento 
+      dockerfile: Dockerfile
+    environment:
+      PG_HOST: jdbc:postgresql://meu-postgres:5432/ms_pagamento
+      PG_USER: postgres
+      PG_PASSWORD: postgres
+      API_SECRET: 7GANwY75ax
+      MS_CARRINHO_URL: service-carrinho
+      MS_CLIENTES_URL: service-clientes
+    depends_on:
+      - meu-postgres
+    networks:
+      - my_network
+      
+  service-carrinho:
+    container_name: service-carrinho
+    build:
+      context: ./ms-carrinho
+      dockerfile: Dockerfile
+    environment:
+        PG_HOST: jdbc:postgresql://meu-postgres:5432/ms_carrinho
+        PG_USER: postgres
+        PG_PASSWORD: postgres
+        API_SECRET: 7GANwY75ax
+        MS_CLIENTES_URL: service-clientes
+        MS_ITEM_URL: service-itens
+    depends_on:
+      - meu-postgres
+    networks:
+      - my_network
+
+  service-gateway:
+    container_name: service-gateway
+    build:
+      context: ./ms-gateway
+      dockerfile: Dockerfile
+    environment:
+      HOST_CLIENTES: http://service-clientes:8081/ms-clientes
+      HOST_CARRINHO: http://service-carrinho:8083/ms-carrinho
+      HOST_PAGAMENTOS: http://service-pagamentos:8084/ms-pagamento
+      HOST_GT_ITENS: http://service-itens:8082/ms-gt-itens
+      HOST_AUTENTICACAO: http://service-autenticacao:8085/ms-autenticacao
+    networks:
+      - my_network
+    depends_on:
+      - meu-postgres
+    ports:
+      - "8080:8080"
+
+networks:
+  my_network:

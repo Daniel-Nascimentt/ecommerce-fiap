@@ -17,5 +17,7 @@ COPY --from=builder /app/target/*.jar ms-autenticacao.jar
 ENV PG_HOST=meu-postgres
 ENV PG_USER=postgres
 ENV PG_PASSWORD=postgres
+ENV API_SECRET=7GANwY75ax
+ENV MS_CLIENTES_URL=ms-clientes
 
 CMD ["java", "-jar", "ms-autenticacao.jar"]

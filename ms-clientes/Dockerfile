@@ -17,5 +17,6 @@ COPY --from=builder /app/target/*.jar ms-clientes.jar
 ENV PG_HOST=meu-postgres
 ENV PG_USER=postgres
 ENV PG_PASSWORD=postgres
+ENV API_SECRET=7GANwY75ax
 
 CMD ["java", "-jar", "ms-clientes.jar"]
