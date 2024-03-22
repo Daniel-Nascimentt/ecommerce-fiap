@@ -26,8 +26,8 @@ public class CarrinhoController {
     }
 
     @PostMapping("/abrirCarrinho/{idUsuario}")
-    public ResponseEntity<CarrinhoResponse> abrirCarrinho(@PathVariable String idUsuario) throws CarrinhoJaAbertoException {
-        return ResponseEntity.ok(carrinhoService.abrirCarrinho(idUsuario));
+    public ResponseEntity<CarrinhoResponse> abrirCarrinho(@RequestHeader("Authorization") String token, @PathVariable String idUsuario) throws CarrinhoJaAbertoException {
+        return ResponseEntity.ok(carrinhoService.abrirCarrinho(token, idUsuario));
     }
 
     @PostMapping("/addItemCarrinho")

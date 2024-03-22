@@ -1,9 +1,6 @@
 package br.com.fiap.msCarrinho.msCarrinho.controller.advice;
 
-import br.com.fiap.msCarrinho.msCarrinho.exception.CarrinhoInvalidoException;
-import br.com.fiap.msCarrinho.msCarrinho.exception.CarrinhoJaAbertoException;
-import br.com.fiap.msCarrinho.msCarrinho.exception.CarrinhoNotFoundException;
-import br.com.fiap.msCarrinho.msCarrinho.exception.ItemNotFoundException;
+import br.com.fiap.msCarrinho.msCarrinho.exception.*;
 import br.com.fiap.msCarrinho.msCarrinho.response.ErrorResponseDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +38,13 @@ public class HandlerException {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<?> carrinhoNotFoundException(CarrinhoNotFoundException ex) {
         logger.error("Erro ao lidar com CarrinhoNotFoundException", ex);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponseDetails(ex.getMessage()));
+    }
+
+    @ExceptionHandler(ClienteNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<?> clienteNotFoundException(ClienteNotFoundException ex) {
+        logger.error("Erro ao lidar com ClienteNotFoundException", ex);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponseDetails(ex.getMessage()));
     }
 

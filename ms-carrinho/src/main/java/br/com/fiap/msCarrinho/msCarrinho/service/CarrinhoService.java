@@ -3,10 +3,7 @@ package br.com.fiap.msCarrinho.msCarrinho.service;
 import br.com.fiap.msCarrinho.msCarrinho.client.ItemClient;
 import br.com.fiap.msCarrinho.msCarrinho.client.MsClientesClient;
 import br.com.fiap.msCarrinho.msCarrinho.domain.Carrinho;
-import br.com.fiap.msCarrinho.msCarrinho.exception.CarrinhoInvalidoException;
-import br.com.fiap.msCarrinho.msCarrinho.exception.CarrinhoJaAbertoException;
-import br.com.fiap.msCarrinho.msCarrinho.exception.CarrinhoNotFoundException;
-import br.com.fiap.msCarrinho.msCarrinho.exception.ItemNotFoundException;
+import br.com.fiap.msCarrinho.msCarrinho.exception.*;
 import br.com.fiap.msCarrinho.msCarrinho.repository.CarrinhoRepository;
 import br.com.fiap.msCarrinho.msCarrinho.request.CarrinhoRequest;
 import br.com.fiap.msCarrinho.msCarrinho.request.FecharCarrinhoRequest;
@@ -31,7 +28,13 @@ public class CarrinhoService {
     private MsClientesClient msClientesClient;
 
 
-    public CarrinhoResponse abrirCarrinho(String idUsuario) throws CarrinhoJaAbertoException {
+    public CarrinhoResponse abrirCarrinho(String token, String idUsuario) throws CarrinhoJaAbertoException {
+
+        ClienteResponse cliente = msClientesClient.buscarCliente(token, idUsuario);
+
+        if(cliente == null) {
+            throw new ClienteNotFoundException("Cliente não encontrado!!");
+        }
 
         Optional<Carrinho> possivelCarrinho = carrinhoRepository.findByIdUsuarioAndStatusIsAberto(idUsuario);
 

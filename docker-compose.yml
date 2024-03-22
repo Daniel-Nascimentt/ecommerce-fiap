@@ -77,8 +77,8 @@ services:
       PG_USER: postgres
       PG_PASSWORD: postgres
       API_SECRET: 7GANwY75ax
-      MS_CARRINHO_URL: service-carrinho
-      MS_CLIENTES_URL: service-clientes
+      MS_CARRINHO_URL: http://service-carrinho:8083/ms-carrinho/carrinho
+      MS_CLIENTES_URL: http://service-clientes:8081/ms-clientes/clientes
     depends_on:
       - meu-postgres
     networks:
@@ -94,7 +94,7 @@ services:
         PG_USER: postgres
         PG_PASSWORD: postgres
         API_SECRET: 7GANwY75ax
-        MS_CLIENTES_URL: service-clientes
+        MS_CLIENTES_URL: http://service-clientes:8081/ms-clientes/clientes
         MS_ITEM_URL: service-itens
     depends_on:
       - meu-postgres

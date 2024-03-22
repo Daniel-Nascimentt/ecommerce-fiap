@@ -53,13 +53,11 @@ public class Carrinho {
 
         Optional<Item> possivelItem = this.itens.stream().filter(it -> it.getIdItem().equals(idItem)).findFirst();
 
-        for(int i = 0; i < quantidadeASerAdicionada; i++) {
-
             if (possivelItem.isEmpty()){
                 this.itens.add(new Item(idItem, this, quantidadeASerAdicionada));
             }else {
                 possivelItem.get().addQuantidade(quantidadeASerAdicionada);
-            }
+
         }
 
         this.valorTotal = this.valorTotal.add(valorItem.multiply(new BigDecimal(quantidadeASerAdicionada)));
@@ -69,8 +67,6 @@ public class Carrinho {
 
         Item itemDomain = this.itens.stream().filter(it -> it.getIdItem().equals(itemResponse.getId())).findFirst().orElseThrow(() -> new ItemNotFoundException("Item não encontrado no carrinho!!"));
 
-        for(int i = 0; i < quantidadeASerRemovida; i++) {
-
             if(itemDomain.getQuantidade() < quantidadeASerRemovida){
                 this.itens.remove(itemDomain);
                 this.valorTotal = this.valorTotal.subtract(itemResponse.getPreco().multiply(new BigDecimal(itemDomain.getQuantidade())));
@@ -78,7 +74,6 @@ public class Carrinho {
             else {
                 itemDomain.removerQuantidade(quantidadeASerRemovida);
                 this.valorTotal = this.valorTotal.subtract(itemResponse.getPreco().multiply(new BigDecimal(quantidadeASerRemovida)));
-            }
 
         }
 

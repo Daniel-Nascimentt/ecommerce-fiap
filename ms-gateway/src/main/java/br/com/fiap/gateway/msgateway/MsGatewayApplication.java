@@ -32,7 +32,7 @@ public class MsGatewayApplication {
 				.route(r -> r.path("/ms-autenticacao/**").uri(this.hostMsAutenticacao))
 				.route(r -> r.path("/ms-clientes/**").uri(this.hostMsClientes))
 				.route(r -> r.path("/ms-gt-itens/**").uri(this.hostMsGtItens))
-				.route(r -> r.path("/ms-pagamento**").uri(this.hostMsPagamentos))
+				.route(r -> r.path("/ms-pagamento/**").uri(this.hostMsPagamentos))
 				.route(r -> r.path("/ms-carrinho/**").uri(this.hostMsCarrinho))
 				.build();
 	}
