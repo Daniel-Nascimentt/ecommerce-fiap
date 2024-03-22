@@ -71,5 +71,6 @@ Ao final desse readme, terá disponível a collection do postman utilizada com a
 > http://localhost:8080/ms-autenticacao/swagger-ui/index.html#/
 
 > http://localhost:8080/ms-gt-itens/swagger-ui/index.html#/
- 
 
+# POSTMAN
+[ecommerce-fiap.postman_collection.json](https://github.com/Daniel-Nascimentt/ecommerce-fiap/files/14729321/ecommerce-fiap.postman_collection.json)
