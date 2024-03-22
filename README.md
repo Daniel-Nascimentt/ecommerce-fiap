@@ -6,6 +6,8 @@ Cada microserviço desempenha funções específicas dentro do ecossistema, com 
 Todos os microserviços foram desenvolvidos em Java com Spring Boot e Spring Security, com exceção do microserviço de gestão de itens. Esse micro service não possui spring security para facilitar os testes da arquitetura como um todo.
 Cada microserviço que contém o Spring security é capaz de validar tokens gerados pelo microserviço de autenticação e todos implementam validação de entrada de dados para garantir a integridade dos mesmos. Cada micro serviço possuí sua única base de dados, conforme os princípios da arquitetura de microserviços. 
 
+# ARQUITETURA DO SISTEMA:
+
 ![arquitetura](https://github.com/Daniel-Nascimentt/ecommerce-fiap/assets/65513073/9abc6b3d-b648-4c34-8195-bf85579f19ca)
 
  Abaixo está um resumo de cada microserviço e suas funcionalidades:
