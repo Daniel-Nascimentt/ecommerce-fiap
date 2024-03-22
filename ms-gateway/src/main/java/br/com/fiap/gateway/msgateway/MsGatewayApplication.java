@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class MsGatewayApplication {
 
-	@Value("${host.ms.usuarios}")
-	private String hostMsUsuarios;
+	@Value("${host.ms.clientes}")
+	private String hostMsClientes;
 	@Value("${host.ms.gt.itens}")
 	private String hostMsGtItens;
 	@Value("${host.ms.carrinho}")
@@ -29,11 +29,11 @@ public class MsGatewayApplication {
 	public RouteLocator routes(RouteLocatorBuilder builder) {
 		return builder
 				.routes()
-				.route(r -> r.path("/ms-cliente/**").uri(this.hostMsUsuarios))
-				.route(r -> r.path("/ms-quartos/**").uri(this.hostMsGtItens))
-				.route(r -> r.path("/ms-reservas/**").uri(this.hostMsCarrinho))
-				.route(r -> r.path("/ms-servicos/**").uri(this.hostMsPagamentos))
-				.route(r -> r.path("/ms-servicos/**").uri(this.hostMsAutenticacao))
+				.route(r -> r.path("/ms-autenticacao/**").uri(this.hostMsAutenticacao))
+				.route(r -> r.path("/ms-clientes/**").uri(this.hostMsClientes))
+				.route(r -> r.path("/ms-gt-itens/**").uri(this.hostMsGtItens))
+				.route(r -> r.path("/ms-pagamento**").uri(this.hostMsPagamentos))
+				.route(r -> r.path("/ms-carrinho/**").uri(this.hostMsCarrinho))
 				.build();
 	}
 

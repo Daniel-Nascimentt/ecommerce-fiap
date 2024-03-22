@@ -1,6 +1,6 @@
 package br.com.fiap.pagamento.mspagamento.service;
 
-import br.com.fiap.pagamento.mspagamento.client.CarrinhoClient;
+import br.com.fiap.pagamento.mspagamento.client.MsCarrinhoClient;
 import br.com.fiap.pagamento.mspagamento.domain.Pagamento;
 import br.com.fiap.pagamento.mspagamento.repository.PagamentoRepository;
 import br.com.fiap.pagamento.mspagamento.request.FecharCarrinhoRequest;
@@ -13,15 +13,15 @@ public class PagamentoService {
 
 
     @Autowired
-    private CarrinhoClient carrinhoClient;
+    private MsCarrinhoClient carrinhoClient;
 
     @Autowired
     private PagamentoRepository pagamentoRepository;
 
-    public void pagar(String idUsuario) {
-        CarrinhoResponse carrinho = carrinhoClient.obterCarrinho(idUsuario);
+    public void pagar(String idUsuario, String token) {
+        CarrinhoResponse carrinho = carrinhoClient.obterCarrinho(token, idUsuario);
         Pagamento pagamento = efetuarPagamento(carrinho, idUsuario);
-        carrinhoClient.fecharCarrinho(new FecharCarrinhoRequest(pagamento.getCodigoPagamento().toString(), idUsuario));
+        carrinhoClient.fecharCarrinho(token, new FecharCarrinhoRequest(pagamento.getCodigoPagamento().toString(), idUsuario));
     }
 
     private Pagamento efetuarPagamento(CarrinhoResponse carrinho, String idUsuario) {
