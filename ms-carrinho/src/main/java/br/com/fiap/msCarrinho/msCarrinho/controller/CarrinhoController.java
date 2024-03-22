@@ -1,5 +1,6 @@
 package br.com.fiap.msCarrinho.msCarrinho.controller;
 
+import br.com.fiap.msCarrinho.msCarrinho.exception.CarrinhoInvalidoException;
 import br.com.fiap.msCarrinho.msCarrinho.exception.CarrinhoJaAbertoException;
 import br.com.fiap.msCarrinho.msCarrinho.exception.CarrinhoNotFoundException;
 import br.com.fiap.msCarrinho.msCarrinho.exception.ItemNotFoundException;
@@ -20,8 +21,8 @@ public class CarrinhoController {
     private CarrinhoService carrinhoService;
 
     @GetMapping("/{idUsuario}")
-    public ResponseEntity<CarrinhoResponse> visualizarCarrinho(@PathVariable String idUsuario) throws CarrinhoNotFoundException {
-        return ResponseEntity.ok(carrinhoService.visualizarCarrinho(idUsuario));
+    public ResponseEntity<CarrinhoResponse> visualizarCarrinho(@RequestHeader("Authorization") String token, @PathVariable String idUsuario) throws CarrinhoNotFoundException, CarrinhoInvalidoException {
+        return ResponseEntity.ok(carrinhoService.visualizarCarrinho(idUsuario, token));
     }
 
     @PostMapping("/abrirCarrinho/{idUsuario}")
@@ -30,19 +31,19 @@ public class CarrinhoController {
     }
 
     @PostMapping("/addItemCarrinho")
-    public ResponseEntity<CarrinhoResponse> addItemCarrinho(@Valid @RequestBody CarrinhoRequest request) throws CarrinhoNotFoundException {
-        return ResponseEntity.ok(carrinhoService.addItemCarrinho(request));
+    public ResponseEntity<CarrinhoResponse> addItemCarrinho(@RequestHeader("Authorization") String token, @Valid @RequestBody CarrinhoRequest request) throws CarrinhoNotFoundException, CarrinhoInvalidoException {
+        return ResponseEntity.ok(carrinhoService.addItemCarrinho(request, token));
     }
 
     @PostMapping("/removerItemCarrinho")
-    public ResponseEntity<CarrinhoResponse> removerItemCarrinho(@Valid @RequestBody CarrinhoRequest request) throws CarrinhoNotFoundException, ItemNotFoundException {
+    public ResponseEntity<CarrinhoResponse> removerItemCarrinho(@RequestHeader("Authorization") String token, @Valid @RequestBody CarrinhoRequest request) throws CarrinhoNotFoundException, ItemNotFoundException, CarrinhoInvalidoException {
 
-        return ResponseEntity.ok(carrinhoService.removerItemCarrinho(request));
+        return ResponseEntity.ok(carrinhoService.removerItemCarrinho(request, token));
     }
 
     @PostMapping("/fechar")
-    public ResponseEntity<?> fecharCarrinho(@Valid @RequestBody FecharCarrinhoRequest request) throws CarrinhoNotFoundException {
-        carrinhoService.fecharCarrinho(request);
+    public ResponseEntity<?> fecharCarrinho(@RequestHeader("Authorization") String token, @Valid @RequestBody FecharCarrinhoRequest request) throws CarrinhoNotFoundException, CarrinhoInvalidoException {
+        carrinhoService.fecharCarrinho(request, token);
         return ResponseEntity.ok().build();
     }
 

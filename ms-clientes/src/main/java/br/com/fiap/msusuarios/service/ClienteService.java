@@ -33,7 +33,7 @@ public class ClienteService {
 
     }
 
-    public ClienteResponse buscarPorId(String id, String s) {
+    public ClienteResponse buscarPorId(String id) {
         Cliente clienteEncontrado = clienteRepository.findById(UUID.fromString(id)).orElseThrow(() -> new ClienteNotFoundException("Cliente não encontrado!!"));
         return new ClienteResponse(clienteEncontrado);
     }

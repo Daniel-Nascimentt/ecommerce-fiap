@@ -28,7 +28,7 @@ public class ClienteController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<ClienteResponse> buscarPorId(@PathVariable String id){
-        return ResponseEntity.ok(clienteService.buscarPorId(id, ""));
+        return ResponseEntity.ok(clienteService.buscarPorId(id));
     }
 
 }
