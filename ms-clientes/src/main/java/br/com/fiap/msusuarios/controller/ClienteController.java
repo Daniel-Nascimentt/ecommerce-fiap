@@ -31,4 +31,10 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.buscarPorId(id));
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deletarPorId(@PathVariable String id){
+        clienteService.deletarPorId(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

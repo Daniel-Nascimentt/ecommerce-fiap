@@ -37,4 +37,9 @@ public class ClienteService {
         Cliente clienteEncontrado = clienteRepository.findById(UUID.fromString(id)).orElseThrow(() -> new ClienteNotFoundException("Cliente não encontrado!!"));
         return new ClienteResponse(clienteEncontrado);
     }
+
+    public void deletarPorId(String id) {
+        Cliente clienteEncontrado = clienteRepository.findById(UUID.fromString(id)).orElseThrow(() -> new ClienteNotFoundException("Cliente não encontrado!!"));
+        clienteRepository.delete(clienteEncontrado);
+    }
 }
